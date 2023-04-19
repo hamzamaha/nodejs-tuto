@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h1>edit article</h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="/articles" class="btn btn-success">view articles</a>
+        </div>
+      </div>
+
+      <form action="/articles/<%= article.id %>" method="POST">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="Title" class="form-label mt-4">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Title"
+                name="title"
+                placeholder="Title"
+                value="<%= article.title %>"
+              />
+              <% if (error && error.path=='title') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="URL" class="form-label mt-4">URL</label>
+              <input
+                type="text"
+                class="form-control"
+                id="URL"
+                name="url"
+                placeholder="URL"
+                value="<%= article.url %>"
+              />
+              <% if (error && error.path=='url') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="description" class="form-label mt-4"
+                >description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                placeholder="Title"
+                value="<%= article.description %>"
+              />
+              <% if (error && error.path=='description') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="category" class="form-label mt-4">category ID</label>
+              <input
+                type="number"
+                class="form-control"
+                id="category"
+                name="category_id"
+                placeholder="Title"
+                value="<%= article.category_id %>"
+              />
+              <% if (error && error.path=='category_id') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="d-grid mt-1 text-end">
+            <button type="submit" class="btn btn-success">edit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

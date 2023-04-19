@@ -2,12 +2,11 @@ const connection = require('../config/db')
 
 
 
-const getAllCourses = async (req,res)=>{
-    // const data = await pool.query("SELECT * FROM courses")
-    // console.log(data);
+const getAllCategories = async (req,res)=>{
+   
 
     try {
-        const [result]= await connection.query('SELECT * FROM courses');
+        const [result]= await connection.query('SELECT * FROM categories');
         res.status(200).json(result)
         
     } catch (error) {
@@ -21,15 +20,12 @@ const getAllCourses = async (req,res)=>{
 
 
 
-// const getAllCourses = (req, res) => res.send(myCourses)
 
-const saveCourse = async (req, res) => {
-    // console.log(req.body);
-    // res.send(req.body)
-    let {title,description}=req.body
+const saveCategorie = async (req, res) => {
+    let {label}=req.body
 
     try {
-        const result= await connection.query('INSERT INTO courses (title,description) VALUES(?,?)',[title,description]);
+        const result= await connection.query('INSERT INTO categories (label) VALUES(?)',[label]);
         res.status(201).send(result)
         
     } catch (error) {
@@ -39,13 +35,12 @@ const saveCourse = async (req, res) => {
     }
 }
 
-const oneCourse  = async (req,res)=>{
-    // const data = await pool.query("SELECT * FROM courses")
-    // console.log(data);
+const oneCategorie  = async (req,res)=>{
+
     const id = req.params.id
 
     try {
-        const [result]= await connection.query('SELECT * FROM courses WHERE id = ?',[id]);
+        const [result]= await connection.query('SELECT * FROM categories WHERE id = ?',[id]);
         if (result.length==0) {
             return res.status(404).json({
                 message:"course not found"
@@ -64,11 +59,11 @@ const oneCourse  = async (req,res)=>{
 
 }
 
-const putCourse = async (req, res) => {
+const putCategorie = async (req, res) => {
     let id =req.params.id
-    let {title,description}=req.body
+    let {label}=req.body
 
-    if (title =='' || description== '') {
+    if (label =='' ) {
         return res.status(400).send({
             message:"Bad request"
         })
@@ -76,7 +71,7 @@ const putCourse = async (req, res) => {
 
     try {
         
-        const [result]= await connection.query('UPDATE courses SET title = ?,description = ? WHERE id = ?',[title,description,id]);
+        const [result]= await connection.query('UPDATE categories SET label = ? WHERE id = ?',[label,id]);
        if (result.affectedRows==0  ) {
         return res.status(400).send({
             message:"Bad request"
@@ -91,13 +86,13 @@ const putCourse = async (req, res) => {
     }
 }
 
-const patchCourse = async (req, res) =>{
+const patchCategorie = async (req, res) =>{
     let id =req.params.id
-    let {title,description}=req.body
+    let {label}=req.body
 
     try {
         
-        const [result]= await connection.query('UPDATE courses SET title=IFNULL(?, title), description=IFNULL(?, description) WHERE id = ?',[title,description,id]);
+        const [result]= await connection.query('UPDATE categories SET label=IFNULL(?, label) WHERE id = ?',[label,id]);
        if (result.affectedRows==0  ) {
         return res.status(400).send({
             message:"Bad request"
@@ -112,12 +107,12 @@ const patchCourse = async (req, res) =>{
     }
 }
 
-const deleteCourse = async(req, res) => {
+const deleteCategorie = async(req, res) => {
     let id =req.params.id
 
     try {
         
-        const [result]= await connection.query('DELETE FROM courses WHERE id = ?',[id]);
+        const [result]= await connection.query('DELETE FROM categories WHERE id = ?',[id]);
 
         res.status(204).send({})
        
@@ -130,9 +125,9 @@ const deleteCourse = async(req, res) => {
     }
 }
 
-exports.getAllCourses = getAllCourses
-exports.oneCourse = oneCourse
-exports.putCourse = putCourse
-exports.saveCourse =saveCourse
-exports.patchCourse =patchCourse
-exports.deleteCourse =deleteCourse
+exports.getAllCategories = getAllCategories
+exports.oneCategorie = oneCategorie
+exports.saveCategorie = saveCategorie
+exports.putCategorie =putCategorie
+exports.patchCategorie =patchCategorie
+exports.deleteCategorie =deleteCategorie

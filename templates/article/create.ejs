@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/Css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h1>Add article</h1>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="/articles" class="btn btn-success">view articles</a>
+        </div>
+      </div>
+
+      <!-- <% if (error) { %>
+      <div class="alert alert-danger"><%= error.message %></div>
+      <% } %> -->
+      <form action="/articles" method="POST" enctype="multipart/form-data">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="Title" class="form-label mt-4">Title</label>
+              <input
+                value="<%= value.title ?? ''%>"
+                type="text"
+                class="form-control"
+                id="Title"
+                name="title"
+                placeholder="Title"
+              />
+              <% if (error && error.path=='title') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="URL" class="form-label mt-4">URL</label>
+              <input
+                type="file"
+                class="form-control"
+                id="URL"
+                name="url"
+                placeholder="URL"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="description" class="form-label mt-4"
+                >description</label
+              >
+              <input
+                value="<%= value.description ?? ''%>"
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                placeholder="Title"
+              />
+              <% if (error && error.path=='description') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-md-4">
+
+              <% if (error && error.path =='category_id') { %>
+              <span class="text-danger"><%= error.message %></span>
+              <% } %>
+            </div> 
+            <br />
+            <select name="category_id" class="form-select">
+              
+              <% category.forEach(function(cat){ %>
+              <option value="<%= cat.id %>"><%= cat.label %></option>
+
+              <% }); %>
+            </select>
+          </div>
+          <div class="d-grid mt-1 text-end">
+            <button type="submit" class="btn btn-success">add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

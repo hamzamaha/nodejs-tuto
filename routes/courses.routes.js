@@ -3,16 +3,7 @@ const { getAllCourses, saveCourse, oneCourse, putCourse, patchCourse, deleteCour
 
 const router = express.Router()
 
-let myCourses = [
-    {
-        id: 1,
-        title: "Learn Nodejs"
-    },
-    {
-        id: 2,
-        title: "Learn Angular"
-    },
-]
+
 
 router.get('/courses', getAllCourses)
 
